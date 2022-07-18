@@ -1,10 +1,10 @@
 const urlModel = require('../models/urlModel');
 const shortId = require('shortid');
 const validUrl = require('validator');
-const shortid = require('shortid');
-const { trusted } = require('mongoose');
 
-function isValid(value) {
+
+
+function isValid(value) {  //function to validated string
     if (typeof value !== 'string' || value.trim().length == 0) return true
     if (value == undefined || value == null) return true
     return false
@@ -21,6 +21,11 @@ exports.shortnerUrl = async(req, res) => {
         //valid url data
         if (isValid(data.longUrl)) {
             return res.status(400).send({ status: false, message: "Please provide long URL" })
+        }
+
+        let longUrl = await urlModel.findOne({ longUrl: data.longUrl }).select({ _id: 0, __v: 0, createdAt: 0, updatedAt: 0 })
+        if (longUrl) {
+            return res.status(200).send({ status: false, data: longUrl })
         }
 
         //checking for valid url
@@ -41,7 +46,7 @@ exports.shortnerUrl = async(req, res) => {
         await urlModel.create(data);
         let responseData = await urlModel.findOne({ urlCode: urlCode }).select({ _id: 0, __v: 0, createdAt: 0, updatedAt: 0 })
 
-        return res.status(201).send({ status: true, message: "URL created succesfully", data: responseData })
+        return res.status(201).send({ status: true, data: responseData })
 
     } catch (error) {
         return res.status(500).send({ status: false, message: error.message })
@@ -52,7 +57,7 @@ exports.getUrl = async(req, res) => {
     try {
         const urlCode = req.params.urlCode
 
-        if (!shortid.isValid(urlCode)) {
+        if (!shortId.isValid(urlCode)) {
             return res.status(400).send({ status: false, message: "URL Code is not valid." })
         }
 
