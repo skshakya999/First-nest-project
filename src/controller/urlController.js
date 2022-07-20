@@ -43,9 +43,11 @@ exports.shortnerUrl = async(req, res) => {
         data.shortUrl = shortUrl;
 
         //creating document or short url
-        await urlModel.create(data);
-        let responseData = await urlModel.findOne({ urlCode: urlCode }).select({ _id: 0, __v: 0, createdAt: 0, updatedAt: 0 })
+        const a = await urlModel.create(data);
+       // let responseData = await urlModel.findOne({ urlCode: urlCode }).select({ _id: 0, __v: 0, createdAt: 0, updatedAt: 0 })
+       const responseData = {longUrl:a.longUrl,shortUrl:a.shortUrl,urlCode:a.urlCode}
 
+        
         return res.status(201).send({ status: true, data: responseData })
 
     } catch (error) {
