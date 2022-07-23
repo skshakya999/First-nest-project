@@ -34,8 +34,10 @@ const GET_ASYNC = promisify(redisClient.GET).bind(redisClient);
 
 //===================================================[API:FOR CREATING SHORT URL]===========================================================
 exports.shortnerUrl = async (req, res) => {
+   
     try {
         let data = req.body;
+      
         //valid data
         if (Object.keys(data).length == 0) {
             return res.status(400).send({ status: false, message: "Invalid Url please provide valid details" })
@@ -90,6 +92,7 @@ exports.shortnerUrl = async (req, res) => {
 //===================================================[API:FOR REDIRECTING TO LONG URL]===========================================================
 
 exports.getUrl = async (req, res) => {
+    
     try {
         const urlCode = req.params.urlCode
 
