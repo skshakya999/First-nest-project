@@ -7,6 +7,7 @@ import { User, UserDocument } from './schemas/user.schema';
 import { LoginUserDto } from './dto/login-user.dto';
 import { Helper } from 'src/helper/helper';
 import { JwtService } from '@nestjs/jwt';
+import { comparePassword, hashPassword } from 'src/hashPassword/hashPassword';
 
 @Injectable()
 export class UserService {
@@ -19,16 +20,17 @@ export class UserService {
     if (!userAlreadyExist) {
       if (!file) {
         const add = {
-          dist:createUserDto.dist,
+          dist: createUserDto.dist,
           state: createUserDto.state,
           pincode: createUserDto.pincode
         }
+        const password = await hashPassword(createUserDto.password)
         const newUser = await new this.usermodel({
           name: createUserDto.name,
           email: createUserDto.email,
-          password: createUserDto.password,
+          password: password,
           mobile: createUserDto.mobile,
-          address:add
+          address: add
         }).save();
         return {
           success: true,
@@ -74,20 +76,32 @@ export class UserService {
   }
 
   async userLogin(loginUser: LoginUserDto) {
-    const log = await this.usermodel.findOne(loginUser)
+
+    const log = await this.usermodel.findOne({
+      email: loginUser.email
+    })
     if (log) {
-      const paylod = { userId: log._id }
-      const token = this.jwt.sign(paylod, { secret: process.env.SECRETE_KEY })
-      return {
-        success: true,
-        message: "Login successfully",
-        token: token,
+      const passwordMatch = await comparePassword(loginUser.password, log.password)
+      if (passwordMatch) {
+        const paylod = { userId: log._id }
+        const token = this.jwt.sign(paylod, { secret: process.env.SECRETE_KEY })
+        return {
+          success: true,
+          message: "Login successfully",
+          token: token,
+        }
+      }
+      else {
+        return {
+          success: false,
+          message: "Invalid credentials"
+        }
       }
     }
     else {
       return {
         success: false,
-        message: "Invalid credentials"
+        message: "No user found with these details"
       }
     }
 
@@ -100,8 +114,8 @@ export class UserService {
     return updateNumber
   }
 
-  async deleteUser(id){
-    const deletedUser = await this.usermodel.deleteOne({_id:id})
+  async deleteUser(id) {
+    const deletedUser = await this.usermodel.deleteOne({ _id: id })
     return deletedUser
   }
 }

@@ -5,7 +5,7 @@ export class LoginUserDto {
     email:string
  
     @IsNotEmpty()
-    mobile: string;
+    password: string;
   
     
  }
