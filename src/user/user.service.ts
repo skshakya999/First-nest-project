@@ -2,8 +2,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { comparePassword,hashPassword } from '../hashPassword/hashPassword';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { Blog, BlogDocument } from './schema/blogSchema';
 import { User, UserDocument } from './schema/userSchema';
 
@@ -17,13 +19,47 @@ export class UserService {
   ) { }
 
   async signUpUser(data: CreateUserDto) {
-
-    const usrCreated = await new this.userModel(data).save()
+    const password = await hashPassword(data.password)
+    const usrCreated = await new this.userModel({
+      fname:data.fname,
+      lname:data.lname,
+      title:data.title,
+      email:data.email,
+      password:password
+    }).save()
     return {
       success: true,
       message: "User created successfully",
       usrCreated
     }
+  }
+
+  async userLogin(logindata:LoginUserDto){
+    const userLoggedIn = await this.userModel.findOne({email:logindata.email})
+  
+    if(userLoggedIn){
+      const isMatchedPass = await comparePassword(logindata.password,userLoggedIn.password)
+      console.log(userLoggedIn);
+      
+      if(isMatchedPass){
+        return{
+          success: true,
+          message: "User LoggedIn successfully",
+          userLoggedIn
+        }
+      }else{
+        return{
+          success: false,
+          message: "Invalid Credentials"
+        }
+      }
+    }else{
+      return{
+        success: false,
+        message: "Invalid Credentials1"
+      }
+    }
+    
   }
 
   async createBlog(createBlogDto: CreateBlogDto) {
