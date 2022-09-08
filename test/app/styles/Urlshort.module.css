@@ -1,0 +1,108 @@
+.container {
+    width: 100%;
+    height: auto;
+    background-color: rgb(36, 47, 61);
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+.heading {
+    font-size: 40px;
+    font-weight: bold;
+    color: aliceblue;
+    font-family: Arial, sans-serif;
+    padding-top: 50px;
+}
+
+.text {
+    color: rgb(208, 212, 216);
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    padding: 20px;
+}
+
+.textarea {
+    width: 40%;
+    height: 50px;
+    border-radius: 7px;
+    font-size: 20px;
+}
+
+.button {
+    width: 250px;
+    height: 55px;
+    background-color: rgb(15, 73, 197);
+    color: antiquewhite;
+    margin: 15px;
+    border-radius: 7px;
+    font-size: 20px;
+}
+
+.output {
+    width: 40%;
+    height: 50px;
+    border-radius: 7px;
+    font-size: 20px;
+    margin: 20px;
+}
+
+/* .shorted {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+} */
+.shorHeading {
+    color: antiquewhite;
+    font-size: 30px;
+    font-family: Arial, sans-serif;
+
+}
+
+.about {
+    text-align: center;
+    margin: 30px;
+    font-family: Arial, sans-serif;
+
+}
+
+.about_heading {
+    font-size: 30px;
+}
+
+.about_text {
+    margin: auto;
+    padding: 30px;
+    font-size: 15px;
+    line-height: 1.6;
+    width: 50%;
+}
+
+.about_text_a {
+    color: blue;
+    font-weight: bold;
+}
+
+.btn {
+    margin-left: -90px;
+    width: 70px;
+    height: 55px;
+    background-color: rgb(15, 167, 28);
+    color: antiquewhite;
+    
+    border-radius: 7px;
+    font-size: 20px;
+
+
+    
+}
+.btn_another {
+  
+    width: 200px;
+    height: 55px;
+    background-color: rgb(15, 111, 167);
+    color: antiquewhite;
+   margin: 20px;
+    border-radius: 7px;
+    font-size: 20px;
+}

@@ -1,0 +1,107 @@
+body{
+    background-color: rgb(241, 234, 234);
+    color: rgb(20, 11, 11);
+}
+.ss{
+    background-color: rgb(69, 100, 6);
+    color: red;
+}
+/* button{
+    width: 70px;
+    height: 40px;
+    background-color: rgb(20, 96, 184);
+    color: white;
+    border-radius: 8px;
+} */
+.mainBox{
+    margin: auto;
+    margin-top: 60px;
+    width: 700px;
+    height: 500px;
+    display : flex;
+    flex-direction: column;
+    
+    background-image: url('../public/img/main.jpg');
+}
+.time-data{
+    width: auto;
+    height: 350px;
+    display: flex;
+    flex-direction: row;
+}
+.weather-data{
+    width: auto;
+   height: 150px;
+    background-color: rgb(0,0,0);
+    opacity: 0.4;
+    color: aliceblue;
+    
+}
+.time-detail{
+    color: aliceblue;
+    width: 350px;
+    font-family: 'Arial';
+    height: 100%;
+    
+   
+}
+.date-time{
+    margin: 80px;
+}
+.time{
+    font-size: 50px;
+    /* font-weight: bold; */
+    
+}
+.am-pm{
+    font-size: 15px;
+}
+.day-year{
+    font-size: 12px;
+}
+.temp{
+    font-size: 50px;
+    margin-left: 90px;
+}
+.city-data{
+    color: aliceblue;
+    font-family: 'Arial';
+    width: 350px;
+
+    height: 100%;
+    
+    text-align: justify;
+}
+.city-detail{
+   margin-top: 80px;
+   margin-left: 150px;
+}
+.city{
+    font-size: 30px;
+}
+.country{
+    margin-left: 45px;
+}
+.weather-type{
+    font-size: 40px;
+    margin-left: 90px;
+    margin-top: 50px;
+}
+.mainDiv{
+    margin-top: 30px;
+    display: flex;
+    height: 100vh;
+    flex-direction: row;
+}
+.loginImage{
+    border: 1px solid red;
+    height: 80%;
+    width: 60%;
+
+    
+}
+.loginForm{
+    border: 1px solid red;
+    height: 80%;
+    width: 40%;
+}
